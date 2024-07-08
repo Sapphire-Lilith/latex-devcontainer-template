@@ -1,1 +1,6 @@
 .env
+
+# remaining after clean command
+*.bbl
+*.bib
+*.synctex.gz
