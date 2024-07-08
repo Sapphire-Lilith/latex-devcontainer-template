@@ -1,0 +1,11 @@
+version: "3"
+services:
+  latex:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        UNAME: user
+        UID: $UID
+        GID: $GID
+    tty: true

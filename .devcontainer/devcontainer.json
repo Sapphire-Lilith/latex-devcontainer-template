@@ -1,0 +1,102 @@
+{
+    "name": "latex_ws",
+    "dockerComposeFile": [
+        "docker-compose.yml"
+    ],
+    "initializeCommand": "/bin/bash .devcontainer/init.sh",
+    "service": "latex",
+    "workspaceFolder": "/workspace",
+    "mounts": [
+        {
+            "type": "bind",
+            "source": "..",
+            "target": "/workspace"
+        }
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "oderwat.indent-rainbow",
+                "James-Yu.latex-workshop"
+            ],
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "editor.formatOnSave": true,
+                "latex-workshop.latex.recipes": [
+                    {
+                        "name": "plain",
+                        "tools": [
+                            "lualatex",
+                            "lualatex"
+                        ]
+                    },
+                    {
+                        "name": "bib",
+                        "tools": [
+                            "lualatex",
+                            "biber",
+                            "lualatex",
+                            "lualatex"
+                        ]
+                    },
+                    {
+                        "name": "bib+idx",
+                        "tools": [
+                            "lualatex",
+                            "biber",
+                            "upmendex",
+                            "lualatex",
+                            "lualatex"
+                        ]
+                    }
+                ],
+                "latex-workshop.latex.tools": [
+                    {
+                        "name": "lualatex",
+                        "command": "lualatex",
+                        "args": [
+                            "-synctex=1",
+                            "-halt-on-error",
+                            "-interaction=nonstopmode",
+                            "-file-line-error",
+                            "-pdflua",
+                            "%DOCFILE%"
+                        ]
+                    },
+                    {
+                        "name": "biber",
+                        "command": "biber",
+                        "args": [
+                            "--bblencoding=utf8",
+                            "-u",
+                            "-U",
+                            "--output_safechars",
+                            "%DOCFILE%"
+                        ]
+                    },
+                    {
+                        "name": "upmendex",
+                        "command": "upmendex",
+                        "args": [
+                            "%DOCFILE%"
+                        ]
+                    }
+                ],
+                "latex-workshop.latex.magic.args": [], // for magic-comment
+                "latex-workshop.latex.autoBuild.run": "never",
+                "latex-workshop.latex.autoClean.run": "onBuilt",
+                "latex-workshop.latex.clean.method": "command",
+                "latex-workshop.latex.clean.command": "latexmk",
+                "latex-workshop.latex.clean.args": [
+                    "-c",
+                    "%TEX%"
+                ],
+                "latex-workshop.latex.rootFile.useSubFile": false,
+                "latex-workshop.intellisense.package.enabled": true,
+                "latex-workshop.view.pdf.viewer": "tab"
+            }
+        }
+    },
+    "shutdownAction": "stopCompose",
+    "remoteUser": "user"
+}
